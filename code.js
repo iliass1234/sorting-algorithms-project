@@ -29,9 +29,12 @@ function appendBodyElements()
     let div2 = document.createElement('div');
     
     header.setAttribute('id', 'header');
-    header.setAttribute('style','width: 100%; height: 60px; background-color: red; display:flex;')
+    header.style = 'width: 100%; height: 60px; background-color: blue; display:flex;  align-items: center; justify-items:center;';
     div1.setAttribute('id', 'toggles');
     div2.setAttribute('id' ,'sort-types')
+
+    div1.style = 'flex: 1 1 200; background-color: green; height: 100%; min-width: 200px; max-width: 600px;';
+    div2.style = 'flex: 1 1 200; background-color: red; height: 100%; min-width: 200px; max-width: 600px;';
 
     header.append(div1,div2);
     document.body.appendChild(header);
