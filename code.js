@@ -62,9 +62,48 @@ function advanceTogglesDiv()
 advanceTogglesDiv();
 
 function advaneSortTypesDiv(){
-    let sortSection = document.querySelector('#sort-types')
-    sortSection.style.backgroundColor = 'red'
+    let sortSection = document.querySelector('#sort-types');
+
+    let bubbleSort = document.createElement('button');
+    bubbleSort.setAttribute('id','bubble-sort')
+    bubbleSort.style = 'font-size: 17px; background-color: transparent;border: none; padding: 10px;color: white;'
+    bubbleSort.innerText = 'BubbleSort'
+
+    sortSection.append(bubbleSort)
+
+    let selectionSort = document.createElement('button');
+    selectionSort.setAttribute('id','selection-sort')
+    selectionSort.style = 'font-size: 17px; background-color: transparent;border: none; padding: 10px;color: white;'
+    selectionSort.innerText = 'SelectionSort'
+
+    sortSection.append(selectionSort)
+
+    let heapSort = document.createElement('button');
+    heapSort.setAttribute('id','heap-sort')
+    heapSort.style = 'font-size: 17px; background-color: transparent;border: none; padding: 10px;color: white;'
+    heapSort.innerText = 'heapSort'
+
+    sortSection.append(heapSort)
+
+    let quickSort = document.createElement('button');
+    quickSort.setAttribute('id','quick-sort')
+    quickSort.style = 'font-size: 17px; background-color: transparent;border: none; padding: 10px;color: white;'
+    quickSort.innerText = 'quickSort'
+
+    sortSection.append(quickSort)
+
+    let mergeSort = document.createElement('button');
+    mergeSort.setAttribute('id','merge-sort')
+    mergeSort.style = 'font-size: 17px; background-color: transparent;border: none; padding: 10px;color: white;'
+    mergeSort.innerText = 'mergeSort'
+
+    sortSection.append(mergeSort)
+
+
+
+
 }
+
 advaneSortTypesDiv()
 
 function generateArrayScene()
