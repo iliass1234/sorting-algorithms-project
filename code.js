@@ -71,7 +71,6 @@ function advaneSortTypesDiv(){
         sort.style = 'flex: 1 1 20px;font-size: 17px; background-color: transparent; border: none; padding: 10px;color: white;'
         sort.innerText = `${sortName}Sort`
         sortSection.append(sort)
-        
     })
 
 }
@@ -94,7 +93,6 @@ function generateArrayScene()
 generateArrayScene()
 function generateArrayEntities(num){
     let arrayScene = document.querySelector('#scene');
-
     arrayScene.innerText = ''
 
 
@@ -114,7 +112,8 @@ function generateArrayEntities(num){
             
             let normal = element/100;
             let barHeight = normal*maxHeight;
-            if (barHeight < 50) { barHeight+=5 } 
+            if (element == 1) { barHeight+=11} 
+            else if (element < 20) { barHeight+=10}
             
             
             let holder = document.createElement('div');
