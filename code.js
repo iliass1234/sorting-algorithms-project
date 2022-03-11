@@ -47,7 +47,7 @@ function advanceTogglesDiv()
 
     let randomArrayBtn = document.createElement('button')
     randomArrayBtn.setAttribute('id', 'random-btn')
-    randomArrayBtn.innerText = 'randomize'
+    randomArrayBtn.innerText = 'newArray'
     randomArrayBtn.style = 'color: white; background-color: #4455ff; border: none; padding: 7px;'
 
     let toggleInputTitle = document.createElement('span')
@@ -76,12 +76,16 @@ function generateArrayScene()
 generateArrayScene()
 function generateArrayEntities(num){
     let arrayScene = document.querySelector('#scene');
+
+    arrayScene.innerText = ''
+
+
     let array = [];
     let maxHeight = 400;
 
-
+    
     for (let i = 0; i < num; i++) {
-        array.push((Math.random()*100));
+        array.push((Math.random()*100)+1);
     }
     array.forEach(element => {
         // variables to make code more clear ;
@@ -89,7 +93,7 @@ function generateArrayEntities(num){
         let createdDiv = document.createElement('div');
         let normal = element/100;
         let divHeight = normal*maxHeight;
-
+        
         createdDiv.style = `background-color: blue; flex: 1 1 20px; height:${divHeight}px ;max-width: 30px;`;
         arrayScene.appendChild(createdDiv)
 
@@ -98,4 +102,10 @@ function generateArrayEntities(num){
 
 }
 
+let rangeToggles = document.querySelector('#toggles > input');
+
 generateArrayEntities(16)
+
+console.log(rangeToggles.value);
+rangeToggles.onchange  = function(){generateArrayEntities(Number(rangeToggles.value))}
+rangeToggles.oninput  = function(){generateArrayEntities(Number(rangeToggles.value))}
