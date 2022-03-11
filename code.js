@@ -46,7 +46,7 @@ function advanceTogglesDiv()
     let sortSection = document.querySelector('#sort-types')
 
     let randomArrayBtn = document.createElement('button')
-    randomArrayBtn.setAttribute('id', 'random-btn')
+    randomArrayBtn.setAttribute('id', 'new-array-btn')
     randomArrayBtn.innerText = 'newArray'
     randomArrayBtn.style = 'color: white; background-color: #4455ff; border: none; padding: 7px;'
 
@@ -55,10 +55,17 @@ function advanceTogglesDiv()
     toggleInputTitle.style = 'color: white; font-size: 14px;'
 
     let toggleInput = document.createElement('input')
-    toggleInput.setAttribute('type', 'range')
+    toggleInput.setAttribute('type', 'range');
+    toggleInput.setAttribute('min', '1');
     toggles.append(toggleInputTitle, toggleInput, randomArrayBtn)
 }
 advanceTogglesDiv();
+
+function advaneSortTypesDiv(){
+    let sortSection = document.querySelector('#sort-types')
+    sortSection.style.backgroundColor = 'red'
+}
+advaneSortTypesDiv()
 
 function generateArrayScene()
 {
@@ -68,7 +75,7 @@ function generateArrayScene()
 
     let scene = document.createElement('div');
     scene.setAttribute('id', 'scene');
-    scene.style = 'margin: 0px 5px; display: flex; justify-content:center;gap:2px; flex: 1 1 100px; min-width: 100px; max-width: 2000px; height: 400px; background-color: black;';
+    scene.style = 'margin: 0px 5px; display: flex; justify-content:center;gap:2px; flex: 1 1 100px; min-width: 100px; max-width: 1000px; height: 400px; background-color: transparent;';
 
     sceneSection.appendChild(scene);
     body.appendChild(sceneSection);
@@ -85,27 +92,51 @@ function generateArrayEntities(num){
 
     
     for (let i = 0; i < num; i++) {
-        array.push((Math.random()*100)+1);
+        array.push(Math.floor((Math.random()*100)+1));
     }
     array.forEach(element => {
         // variables to make code more clear ;
 
-        let createdDiv = document.createElement('div');
-        let normal = element/100;
-        let divHeight = normal*maxHeight;
-        
-        createdDiv.style = `background-color: blue; flex: 1 1 20px; height:${divHeight}px ;max-width: 30px;`;
-        arrayScene.appendChild(createdDiv)
 
+        setTimeout(() => {   
+            
+            
+            let normal = element/100;
+            let barHeight = normal*maxHeight;
+            if (barHeight < 50) { barHeight+=5 } 
+            
+            
+            let holder = document.createElement('div');
+            holder.style = ''
+            
+            let bar = document.createElement('div');
+            bar.style = 'background-color: blue; height: 100%;'
+            
+            let h5 = document.createElement('h5');
+            h5.style = 'margin: 0px;'
+            h5.textContent = element; 
+            
+            holder.append(h5, bar);
+            holder.style = `display: flex; flex-direction: column; gap: 1px; flex: 1 1 20px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
+            arrayScene.appendChild(holder)
+            
+        }, 0);
 
     })
 
 }
 
 let rangeToggles = document.querySelector('#toggles > input');
+let newArrayBtn = document.querySelector('#new-array-btn');
 
-generateArrayEntities(16)
+generateArrayEntities(50);
 
-console.log(rangeToggles.value);
-rangeToggles.onchange  = function(){generateArrayEntities(Number(rangeToggles.value))}
-rangeToggles.oninput  = function(){generateArrayEntities(Number(rangeToggles.value))}
+rangeToggles.onchange  = function(){
+        generateArrayEntities(Number(rangeToggles.value))
+}
+rangeToggles.oninput  = function(){
+        generateArrayEntities(Number(rangeToggles.value))
+}
+
+
+newArrayBtn.onclick = function(){generateArrayEntities(Number(rangeToggles.value))}
