@@ -20,7 +20,6 @@ function appendHeadTagElements()
         document.head.append(meta1, meta2, meta3)
         
 }
-
 appendHeadTagElements();
 function appendBodyElements()
 {
@@ -32,8 +31,8 @@ function appendBodyElements()
     div1.setAttribute('id', 'toggles');
     div2.setAttribute('id' ,'sort-types')
 
-    div1.style = 'display:flex; flex: 1 1 200px; background-color: green; height: 100%; min-width: 200px; max-width: 600px;';
-    div2.style = 'display:flex; flex: 1 1 200px; background-color: red; height: 100%; min-width: 200px; max-width: 600px;';
+    div1.style = 'padding: 0px 10px; display:flex; flex: 1 1 200px; align-items: center; background-color: green; height: 100%; min-width: 200px; max-width: 600px;';
+    div2.style = 'display:flex; flex: 1 1 200px; align-items: center; background-color: red; height: 100%; min-width: 200px; max-width: 600px;';
     header.setAttribute('id', 'header');
     header.style = 'width: 100%; height: 60px; background-color: blue; display:flex;  align-items: center; justify-content:center;';
 
@@ -42,8 +41,23 @@ function appendBodyElements()
     
 }
 appendBodyElements()
+function advanceTogglesDiv()
+{
+    let toggles = document.querySelector('#toggles');
+    toggles.style.backgroundColor = 'yellow';
 
 
+    let randomArrayBtn = document.createElement('button')
+    randomArrayBtn.setAttribute('id', 'random-btn')
+    randomArrayBtn.innerText = 'randomize'
 
+    let toggleInputTitle = document.createElement('span')
+    toggleInputTitle.innerText = 'array length:'
+
+    let toggleInput = document.createElement('input')
+    toggleInput.setAttribute('type', 'range')
+    toggles.append(toggleInputTitle, toggleInput, randomArrayBtn)
+}
+advanceTogglesDiv()
 
 
