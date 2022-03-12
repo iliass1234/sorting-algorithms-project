@@ -118,17 +118,16 @@ function generateArrayEntities(num){
             
             
             let holder = document.createElement('div');
-            holder.style = ''
             
             let bar = document.createElement('div');
             bar.style = 'background-color: blue; height: 100%; flex: 1 1 3px;'
             
-            let h5 = document.createElement('h5');
-            h5.style = 'margin: 0px;'
-            h5.textContent = element; 
+//            let h5 = document.createElement('h5');
+//            h5.style = 'margin: 0px;'
+//            h5.textContent = element; 
             
-            holder.append(h5, bar);
-            holder.style = `display: flex; flex-direction: column; gap: 1px; flex: 1 1 3px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
+            holder.append(bar);
+            holder.style = `display: flex; flex-direction: column; gap: 0px; flex: 1 1 3px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
             arrayScene.appendChild(holder)
             
         }, 0);
@@ -141,7 +140,7 @@ function generateArrayEntities(num){
 let rangeToggles = document.querySelector('#toggles > input');
 let newArrayBtn = document.querySelector('#new-array-btn');
 
-generateArrayEntities(30);
+generateArrayEntities(15);
 
 rangeToggles.onchange  = function(){
     theArray = [];
@@ -189,14 +188,10 @@ BubbleSort.onclick = function(){
        holder.style = ''
        
        let bar = document.createElement('div');
-       bar.style = 'background-color: blue; height: 100%;'
-       
-       let h5 = document.createElement('h5');
-       h5.style = 'margin: 0px;'
-       h5.textContent = element; 
+       bar.style = 'background-color: blue; height: 100%; margin: 0px;'
 
-       holder.append(h5, bar);
-       holder.style = `display: flex; flex-direction: column; gap: 0px; flex: 1 1 2px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
+       holder.append(bar);
+       holder.style = `display: flex; flex-direction: column; gap: 0px; flex: 1 1 1px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
        arrayScene.appendChild(holder)
        
    })
