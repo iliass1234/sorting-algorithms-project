@@ -60,7 +60,7 @@ function advanceTogglesDiv()
     let toggleInput = document.createElement('input')
     toggleInput.setAttribute('type', 'range');
     toggleInput.setAttribute('min', '1');
-    toggleInput.setAttribute('max', '300');
+    toggleInput.setAttribute('max', '100');
     toggles.append(toggleInputTitle, toggleInput, randomArrayBtn)
 }
 advanceTogglesDiv();
@@ -89,7 +89,7 @@ function generateArrayScene()
 
     let scene = document.createElement('div');
     scene.setAttribute('id', 'scene');
-    scene.style = 'margin: 0px 5px; display: flex; justify-content:center; gap:2px; flex: 1 1 100px; min-width: 100px; max-width: 800px; height: 400px; background-color: transparent;';
+    scene.style = 'margin: 0px 5px; display: flex; justify-content:center; gap: 1px; flex: 1 1 100px; min-width: 100px; max-width: 800px; height: 400px; background-color: transparent;';
 
     sceneSection.appendChild(scene);
     body.appendChild(sceneSection);
@@ -97,10 +97,9 @@ function generateArrayScene()
 generateArrayScene()
 function generateArrayEntities(num){
     let arrayScene = document.querySelector('#scene');
-    arrayScene.innerText = ''
-
     let maxHeight = 400;
-
+    arrayScene.innerText = '';
+    
     
     for (let i = 0; i < num; i++) {
         theArray.push(Math.floor((Math.random()*100)+1));
@@ -109,28 +108,21 @@ function generateArrayEntities(num){
         // variables to make code more clear ;
 
 
-        setTimeout(() => {   
+//        setTimeout(() => {   
             
             let normal = element/100;
             let barHeight = normal*maxHeight;
             if (element == 1) { barHeight+=11} 
             else if (element < 20) { barHeight+=10}
             
-            
-            let holder = document.createElement('div');
-            
             let bar = document.createElement('div');
-            bar.style = 'background-color: blue; height: 100%; flex: 1 1 3px;'
+            bar.dataset.value = element;
             
-//            let h5 = document.createElement('h5');
-//            h5.style = 'margin: 0px;'
-//            h5.textContent = element; 
-            
-            holder.append(bar);
-            holder.style = `display: flex; flex-direction: column; gap: 0px; flex: 1 1 3px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
-            arrayScene.appendChild(holder)
-            
-        }, 0);
+            bar.style = `background-color: blue; flex: 1 1 2px; height:${barHeight}px ;max-width: 40px;margin:0px;`;
+            bar.setAttribute('class','bar');
+
+            arrayScene.appendChild(bar)
+//        }, 0);
 
 
         
@@ -157,43 +149,61 @@ newArrayBtn.onclick = function(){generateArrayEntities(Number(rangeToggles.value
 let BubbleSort = document.querySelector('#Bubble-sort')
 
 BubbleSort.onclick = function(){
-    
+
+
+    function insertBefore(parentNode , previousNode , replaceNode){
+        parentNode.insertBefore(previousNode, replaceNode);
+        parentNode.removeChild(previousNode);
+
+
+    }
+
+
+
+
     let arrayScene = document.querySelector('#scene') 
     let swapCount = -1;
     
     while(swapCount !== 0){
-        arrayScene.innerText = '';
+        //arrayScene.innerText = '';
             
     swapCount = 0;
     for(let i = 1; i < theArray.length ; i++){
+        let first,seccond;
+        first = theArray[i-1] ;
+        seccond = theArray[i];
+
         if (theArray[i]<theArray[i-1]) {
+            swapCount++
+        }
+
+        if (theArray[i]<theArray[i-1]) {
+
+            setTimeout(() => {
+                
+
+                
+                let currentBar = document.querySelector(`div[data-value="${first}"]`);
+                let currentNextBar = document.querySelector(`div[data-value="${seccond}"]`);
+                let savedAttr = [window.getComputedStyle(currentNextBar).height, currentNextBar.dataset.value];
+                
+                currentNextBar.style.height = window.getComputedStyle(currentBar).height;
+                currentNextBar.dataset.value = currentBar.dataset.value;
+                currentBar.style.height = savedAttr[0];
+                currentBar.dataset.value = savedAttr[1];
+
+                
+            }, 10);
+        }
+        if (theArray[i]<theArray[i-1]) {   
             let temp = theArray[i];
-            theArray[i] = theArray[i-1];
+            theArray[i] = theArray[i-1]
             theArray[i-1] = temp;
-            swapCount++ ;
-            }
+        }
+            
     }
-    }
-
-    theArray.forEach(element => {
-        // variables to make code more clear ;
     
-       let normal = element/100;
-       let barHeight = normal*500;
-       if (element == 1) { barHeight+=11} 
-       else if (element < 20) { barHeight+=10}
-       
-       
-       let holder = document.createElement('div');
-       holder.style = ''
-       
-       let bar = document.createElement('div');
-       bar.style = 'background-color: blue; height: 100%; margin: 0px;'
-
-       holder.append(bar);
-       holder.style = `display: flex; flex-direction: column; gap: 0px; flex: 1 1 1px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
-       arrayScene.appendChild(holder)
-       
-   })
-    console.log(theArray);
+    
+}
+console.log(theArray)
 }
