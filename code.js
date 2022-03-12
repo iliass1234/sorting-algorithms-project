@@ -1,6 +1,9 @@
 const body = document.body;
 body.style = 'margin:0; font-family: monospace;'
 
+let theArray = [];
+
+
 function appendHeadTagElements()
 {
     let meta1 = document.createElement('meta');
@@ -57,13 +60,14 @@ function advanceTogglesDiv()
     let toggleInput = document.createElement('input')
     toggleInput.setAttribute('type', 'range');
     toggleInput.setAttribute('min', '1');
+    toggleInput.setAttribute('max', '300');
     toggles.append(toggleInputTitle, toggleInput, randomArrayBtn)
 }
 advanceTogglesDiv();
 
 function advaneSortTypesDiv(){
     let sortSection = document.querySelector('#sort-types');
-    let sorts = ['Bubble','Selection','heap','quick','merge']
+    let sorts = ['Bubble','Selection','Heap','Quick','Merge']
 
     sorts.forEach(sortName =>{  
         let sort = document.createElement('p');
@@ -85,7 +89,7 @@ function generateArrayScene()
 
     let scene = document.createElement('div');
     scene.setAttribute('id', 'scene');
-    scene.style = 'margin: 0px 5px; display: flex; justify-content:center;gap:2px; flex: 1 1 100px; min-width: 100px; max-width: 1000px; height: 400px; background-color: transparent;';
+    scene.style = 'margin: 0px 5px; display: flex; justify-content:center; gap:2px; flex: 1 1 100px; min-width: 100px; max-width: 800px; height: 400px; background-color: transparent;';
 
     sceneSection.appendChild(scene);
     body.appendChild(sceneSection);
@@ -95,20 +99,17 @@ function generateArrayEntities(num){
     let arrayScene = document.querySelector('#scene');
     arrayScene.innerText = ''
 
-
-    let array = [];
     let maxHeight = 400;
 
     
     for (let i = 0; i < num; i++) {
-        array.push(Math.floor((Math.random()*100)+1));
+        theArray.push(Math.floor((Math.random()*100)+1));
     }
-    array.forEach(element => {
+    theArray.forEach(element => {
         // variables to make code more clear ;
 
 
         setTimeout(() => {   
-            
             
             let normal = element/100;
             let barHeight = normal*maxHeight;
@@ -120,33 +121,84 @@ function generateArrayEntities(num){
             holder.style = ''
             
             let bar = document.createElement('div');
-            bar.style = 'background-color: blue; height: 100%;'
+            bar.style = 'background-color: blue; height: 100%; flex: 1 1 3px;'
             
             let h5 = document.createElement('h5');
             h5.style = 'margin: 0px;'
             h5.textContent = element; 
             
             holder.append(h5, bar);
-            holder.style = `display: flex; flex-direction: column; gap: 1px; flex: 1 1 20px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
+            holder.style = `display: flex; flex-direction: column; gap: 1px; flex: 1 1 3px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
             arrayScene.appendChild(holder)
             
         }, 0);
 
-    })
 
+        
+    })
 }
 
 let rangeToggles = document.querySelector('#toggles > input');
 let newArrayBtn = document.querySelector('#new-array-btn');
 
-generateArrayEntities(50);
+generateArrayEntities(30);
 
 rangeToggles.onchange  = function(){
-        generateArrayEntities(Number(rangeToggles.value))
+    theArray = [];
+    generateArrayEntities(Number(rangeToggles.value))
 }
 rangeToggles.oninput  = function(){
-        generateArrayEntities(Number(rangeToggles.value))
+    theArray = [];
+    generateArrayEntities(Number(rangeToggles.value))
 }
 
+newArrayBtn.onclick = function(){generateArrayEntities(Number(rangeToggles.value))};
 
-newArrayBtn.onclick = function(){generateArrayEntities(Number(rangeToggles.value))}
+
+let BubbleSort = document.querySelector('#Bubble-sort')
+
+BubbleSort.onclick = function(){
+    
+    let arrayScene = document.querySelector('#scene') 
+    let swapCount = -1;
+    
+    while(swapCount !== 0){
+        arrayScene.innerText = '';
+            
+    swapCount = 0;
+    for(let i = 1; i < theArray.length ; i++){
+        if (theArray[i]<theArray[i-1]) {
+            let temp = theArray[i];
+            theArray[i] = theArray[i-1];
+            theArray[i-1] = temp;
+            swapCount++ ;
+            }
+    }
+    }
+
+    theArray.forEach(element => {
+        // variables to make code more clear ;
+    
+       let normal = element/100;
+       let barHeight = normal*500;
+       if (element == 1) { barHeight+=11} 
+       else if (element < 20) { barHeight+=10}
+       
+       
+       let holder = document.createElement('div');
+       holder.style = ''
+       
+       let bar = document.createElement('div');
+       bar.style = 'background-color: blue; height: 100%;'
+       
+       let h5 = document.createElement('h5');
+       h5.style = 'margin: 0px;'
+       h5.textContent = element; 
+
+       holder.append(h5, bar);
+       holder.style = `display: flex; flex-direction: column; gap: 0px; flex: 1 1 2px; height:${barHeight}px ;max-width: 30px;margin:0px;`;
+       arrayScene.appendChild(holder)
+       
+   })
+    console.log(theArray);
+}
