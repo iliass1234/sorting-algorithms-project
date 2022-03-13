@@ -104,7 +104,7 @@ function generateArrayEntities(num){
     for (let i = 0; i < num; i++) {
         theArray.push(Math.floor((Math.random()*100)+1));
     }
-    theArray.forEach(element => {
+    theArray.forEach((element,index) => {
         // variables to make code more clear ;
 
 
@@ -117,6 +117,7 @@ function generateArrayEntities(num){
             
             let bar = document.createElement('div');
             bar.dataset.value = element;
+            bar.innerText = index;
             
             bar.style = `background-color: blue; flex: 1 1 2px; height:${barHeight}px ;max-width: 40px;margin:0px;`;
             bar.setAttribute('class','bar');
@@ -133,7 +134,6 @@ let rangeToggles = document.querySelector('#toggles > input');
 let newArrayBtn = document.querySelector('#new-array-btn');
 
 generateArrayEntities(15);
-
 rangeToggles.onchange  = function(){
     theArray = [];
     generateArrayEntities(Number(rangeToggles.value))
@@ -142,68 +142,55 @@ rangeToggles.oninput  = function(){
     theArray = [];
     generateArrayEntities(Number(rangeToggles.value))
 }
-
 newArrayBtn.onclick = function(){generateArrayEntities(Number(rangeToggles.value))};
 
-
 let BubbleSort = document.querySelector('#Bubble-sort')
-
 BubbleSort.onclick = function(){
-
-
-    function insertBefore(parentNode , previousNode , replaceNode){
-        parentNode.insertBefore(previousNode, replaceNode);
-        parentNode.removeChild(previousNode);
-
-
-    }
-
 
 
 
     let arrayScene = document.querySelector('#scene') 
     let swapCount = -1;
-    
+    let counter = 0;
     while(swapCount !== 0){
         //arrayScene.innerText = '';
-            
+    
     swapCount = 0;
     for(let i = 1; i < theArray.length ; i++){
-        let first,seccond;
-        first = theArray[i-1] ;
-        seccond = theArray[i];
-
-        if (theArray[i]<theArray[i-1]) {
+        console.log(counter)
+        counter++;
+        if (theArray[i-1]>theArray[i]) {
             swapCount++
         }
-
-        if (theArray[i]<theArray[i-1]) {
-
-            setTimeout(() => {
+        
+        if (theArray[i-1]>theArray[i]) {
                 
+                let first,seccond;
+                first = i-1;
+                seccond = i;
+                
+                let firstNode = document.querySelector(`div[data-index="${first}"]`);
+                let seccondNode = document.querySelector(`div[data-index="${seccond}"]`);
 
+                firstNode.innerText = Number(firstNode.innerText+1);
+                seccondNode.innerText = Number(seccondNode.innerText-1);
                 
-                let currentBar = document.querySelector(`div[data-value="${first}"]`);
-                let currentNextBar = document.querySelector(`div[data-value="${seccond}"]`);
-                let savedAttr = [window.getComputedStyle(currentNextBar).height, currentNextBar.dataset.value];
+                arrayScene.insertBefore(seccondNode, firstNode);
+                console.log(firstNode, seccondNode);
                 
-                currentNextBar.style.height = window.getComputedStyle(currentBar).height;
-                currentNextBar.dataset.value = currentBar.dataset.value;
-                currentBar.style.height = savedAttr[0];
-                currentBar.dataset.value = savedAttr[1];
-
-                
-            }, 10);
         }
-        if (theArray[i]<theArray[i-1]) {   
-            let temp = theArray[i];
-            theArray[i] = theArray[i-1]
-            theArray[i-1] = temp;
+        
+        if (theArray[i-1]>theArray[i]) {
+         
+            let temp = theArray[i-1];
+            theArray[i-1] = theArray[i];
+            theArray[i] = temp;
+         
         }
-            
+
     }
     
     
 }
-console.log(theArray)
+console.log(theArray);
 }
